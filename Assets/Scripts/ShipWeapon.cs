@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShipWeapon : MonoBehaviour {
 
-	#region Attributes
+    #region Attributes
 
-    public GameObject bulletPrefab;
+    private const string BULLET_PREFAB_PATH = "Prefabs/Bullet";
 
     public float bulletSpawnDistance = .5f;
 
@@ -28,7 +28,12 @@ public class ShipWeapon : MonoBehaviour {
 
     private void FireBullet(Vector3 position, Quaternion rotation)
     {
-        Instantiate(bulletPrefab, position, rotation);
+        var bullet = ObjectPooler.GetPooledObject(BULLET_PREFAB_PATH);
+
+        bullet.transform.position = position;
+        bullet.transform.rotation = rotation;
+
+        bullet.SetActive(true);
     }
 
     #endregion
